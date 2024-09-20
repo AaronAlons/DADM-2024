@@ -1,5 +1,8 @@
-# Shooing cart 🛒 peoject
-proyecto didactico para el curso de 
+# Shooing cart 🛒 project
+
+proyecto didactico para el curso de
 desarrollo de apps en dispositivos moviles
-# Autor 
+
+# Autor
+
 Aaron Alonso smith Brown 🦖
