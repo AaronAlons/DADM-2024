@@ -1,3 +1,7 @@
+<center>
+<img src="./md/images/ITGAMBanner.png">
+</center>
+
 # Shooing cart 🛒 project
 
 proyecto didactico para el curso de
