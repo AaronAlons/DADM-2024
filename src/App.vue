@@ -9,7 +9,8 @@ const items = ref([
     {id:'5',label:'1 lata de atun'},
     {id:'6',label:'1 pc gamer'}
 ]);
-const newItem =ref();
+const newItem =ref('');
+const newItemPriority= ref('low');
 </script>
 
 <template>
@@ -20,7 +21,17 @@ const newItem =ref();
 </h1> 
 <input v-model="newItem"
 type="text" 
-placeholder="Agregar articulo">{{ newItem }}
+placeholder="Agregar articulo">
+<!--Radio Buttons-->
+<label>
+    <input type="radio" value="low" v-model="newItemPriority">
+    Bajo
+</label>
+<label>
+    <input type="radio" value="high" v-model="newItemPriority">
+    Alto
+</label>
+{{ newItemPriority =='low'?'🦖':'❤️‍🔥'}}
 <!--ul>li*3 es el lenguaje emet a usar-->
 <ul>
     <li v-for="item in items" :key="item.id"> 🦖🦖 {{ item.label }}</li>
