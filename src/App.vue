@@ -19,7 +19,7 @@ const items = ref([
 </h1> 
 <!--ul>li*3 es el lenguaje emet a usar-->
 <ul>
-    <li v-for="item in items" :key="item.id"> 🛒 {{ item.label }}</li>
+    <li v-for="{label, id} in items" :key="id"> 🛒 {{ label }}</li>
 </ul>
 </template>
 
