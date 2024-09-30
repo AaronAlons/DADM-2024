@@ -96,7 +96,7 @@ Radio Buttons
     <button
       class="btn btn-primary"
     >
-      Save Item
+      GUARDAR PRODUCTO
     </button>
   </form>
 <!--ul>li*3 es el lenguaje emet a usar-->
