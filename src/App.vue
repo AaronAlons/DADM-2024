@@ -90,7 +90,7 @@ Radio Buttons
     <!-- Caja de seleccion de prioridad -->
     <label>
       <input type="checkbox" v-model="newItemHighPriority" />
-      High Priority
+      alta prioridad
     </label>
     <!-- Boton -->
     <button
@@ -101,8 +101,8 @@ Radio Buttons
   </form>
 <!--ul>li*3 es el lenguaje emet a usar-->
 <ul>
-    <li v-for="item in items" :key="item.id"> 🦖🦖 {{ item.label }}</li>
-</ul>
+        <li v-for="({id,label}, i) in items" :key="id"> {{ i+1 }} {{i%2==0?'🦖':'🛒'}} {{label}} </li>
+    </ul>
 </template>
 
 <style scoped>
