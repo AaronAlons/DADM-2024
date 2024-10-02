@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue';
+//models
 const header = ref('App lista de compras');
+//items
+//item model
 const items = ref([
     {id:'1', label:'10 bolillos'},
     {id:'2',label:'1 lata de frijoles'},
@@ -9,6 +12,14 @@ const items = ref([
     {id:'5',label:'1 lata de atun'},
     {id:'6',label:'1 pc gamer'}
 ]);
+//items method
+const saveItem = () =>{
+  items.value.push({id: items.value.length +1, label: newItem.value});
+  //clean the input
+  newItem.value='';
+}
+
+
 const newItem =ref('');
 const newItemHighPriority = ref(false);
 /*Helados
@@ -80,7 +91,9 @@ Radio Buttons
 -->
 
 <!-- Agrupando en un div las entradas -->
-<form v-on:submit.prevent="items.push({ id: items.length + 1, label: newItem })" class="add-item fomr">
+ <!--<form calss="add-item form" v-on:submit.prevent="items.push({ id: items.length + 1, label: newItem })" class="add-item fomr">-->
+<form calss="add-item form" v-on:submit.prevent= "saveItem">
+  
     <!-- entrada de texto -->
     <input
       v-model.trim="newItem"
@@ -101,7 +114,9 @@ Radio Buttons
   </form>
 <!--ul>li*3 es el lenguaje emet a usar-->
 <ul>
-        <li v-for="({id,label}, i) in items" :key="id"> {{ i+1 }} {{i%2==0?'🦖':'🛒'}} {{label}} </li>
+       
+  <!--<li v-for="({id,label}, i) in items" :key="id"> {{ i+1 }} {{i%2==0?'🦖':'🛒'}} {{label}} </li>-->
+        <li v-for="item in items" :key="item.id">🦖🦖 {{item.label}} </li>
     </ul>
 </template>
 
