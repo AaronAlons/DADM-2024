@@ -1,5 +1,5 @@
 <script setup>
-import { onActivated, ref } from 'vue';
+import { ref } from 'vue';
 //models
 const header = ref('App lista de compras');
 //items
