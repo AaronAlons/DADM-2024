@@ -53,6 +53,7 @@ const newItemPriority= ref('low');
       Agregar articulo
     </button>
   </div>
+  <a v-bind:href="'https://' + newItem" target="_blank">{{newItem==""?"🦖 Link":newItem}}</a>
   <div>
     <!--<input v-model="newItem"
     type="text" 
@@ -124,7 +125,7 @@ v-on:submit.prevent = "saveItem">
     <!-- Caja de seleccion de prioridad -->
     <label>
       <input type="checkbox" v-model="newItemHighPriority" />
-      alta prioridad
+      ALTA PRIORIDAD
     </label>
     <!-- Boton -->
     <button
