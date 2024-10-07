@@ -26,6 +26,12 @@ const editing = ref(true);
 const activateEdition =(activate) =>{
   editing.value=activate;
 }
+const link = () => {
+  if (newItem.value.length === 0) {
+    return 'https://google.com';
+  }
+  return `https://${newItem.value}`;
+};
 
 /*Helados
 const iceCreamFlavors = ref([]);*/
@@ -46,14 +52,21 @@ const newItemPriority= ref('low');
   </i>
     {{ header }}
     </h1> 
+    <!--Boton para cancelar el formulario-->
     <button v-if="editing" class="btn " v-on:click="activateEdition(false)">
       Cancelar
     </button>
+    <!--Boton para agregar el formulario-->
     <button v-else class="btn btn-primary" v-on:click="activateEdition(true)">
       Agregar articulo
     </button>
   </div>
-  <a v-bind:href="'https://' + newItem" target="_blank">{{newItem==""?"🦖 Link":newItem}}</a>
+  <!--agregar el link-->
+  <!--<a v-bind:href="'https://' + newItem" target="_blank">{{newItem==""?"🦖 Link":newItem}}</a>-->
+  <!--<a v-bind:href="newItem === '' ? 'https://www.google.com' : 'http://' + newItem" target="_blank">
+    {{ newItem === '' ? '🦖 link' : newItem }}
+  </a>-->
+  <a :href=link()>{{ newItem === '' ? '🦖 LINK' : newItem }}</a>
   <div>
     <!--<input v-model="newItem"
     type="text" 
