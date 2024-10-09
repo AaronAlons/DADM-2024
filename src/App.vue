@@ -141,7 +141,7 @@ v-on:submit.prevent = "saveItem">
       ALTA PRIORIDAD
     </label>
     <!-- Boton -->
-    <button
+    <button :disabled="newItem.length === 0"
       class="btn btn-primary"
     >
       GUARDAR PRODUCTO
