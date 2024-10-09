@@ -148,8 +148,8 @@ v-on:submit.prevent = "saveItem">
     </button>
   </form>
 <!--ul>li*3 es el lenguaje emet a usar-->
+<!--lista para objetos-->
 <ul>
-  <!--<li v-for="({id,label}, i) in items" :key="id"> {{ i+1 }} {{i%2==0?'🦖':'🛒'}} {{label}} </li>-->
         <li 
         v-for="{id,label,purchased, priority} 
         in items" 
@@ -158,6 +158,21 @@ v-on:submit.prevent = "saveItem">
       :class="{strikeout: purchased, priority:priority}">
     {{ priority ? '❤️‍🔥' : '⭐' }} 
         {{label}} </li>
+
+        <p v-if="items.length===0">🥀NO HAY ELEMENTOS EN LA LISTA🥀</p>
+</ul>
+<!--lista para arreglos-->
+<ul>
+  <!--<li v-for="({id,label}, i) in items" :key="id"> {{ i+1 }} {{i%2==0?'🦖':'🛒'}} {{label}} </li>-->
+        <li 
+        v-for="{id,label,purchased, priority} 
+        in items" 
+        :key="id"
+         
+      :class="[purchased ? 'strikeout' : '', priority ? 'priority' : '']">
+    {{ priority ? '❤️‍🔥' : '⭐' }} 
+        {{label}} 
+      </li>
 
         <p v-if="items.length===0">🥀NO HAY ELEMENTOS EN LA LISTA🥀</p>
 </ul>
