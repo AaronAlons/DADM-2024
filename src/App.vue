@@ -5,12 +5,12 @@ const header = ref('App lista de compras');
 //items
 //item model
 const items = ref([
-    {id:'1', label:'10 bolillos'},
-    {id:'2',label:'1 lata de frijoles'},
-    {id:'3',label:'1 chela'},
-    {id:'4',label:'1 nutella'},
-    {id:'5',label:'1 lata de atun'},
-    {id:'6',label:'1 pc gamer'}
+    {id:'1', label:'10 bolillos',purchased:true,priority:true},
+    {id:'2',label:'1 lata de frijoles',purchased:false, priority:true},
+    {id:'3',label:'1 chela',purchased:false, priority:true},
+    {id:'4',label:'1 nutella',purchased:false, priority:true},
+    {id:'5',label:'1 lata de atun', purchased:false,  priority:true},
+    {id:'6',label:'1 pc gamer', purchased:false,  priority:true}
 ]);
 //items method
 const saveItem = () =>{
@@ -150,7 +150,14 @@ v-on:submit.prevent = "saveItem">
 <!--ul>li*3 es el lenguaje emet a usar-->
 <ul>
   <!--<li v-for="({id,label}, i) in items" :key="id"> {{ i+1 }} {{i%2==0?'🦖':'🛒'}} {{label}} </li>-->
-        <li v-for="item in items" :key="item.id">🦖🦖 {{item.label}} </li>
+        <li 
+        v-for="{id,label,purchased, priority} 
+        in items" 
+        :key="id"
+         class="amazing"
+      :class="{strikeout: purchased, priority:priority}">
+    {{ priority ? '❤️‍🔥' : '⭐' }} 
+        {{label}} </li>
 
         <p v-if="items.length===0">🥀NO HAY ELEMENTOS EN LA LISTA🥀</p>
 </ul>
