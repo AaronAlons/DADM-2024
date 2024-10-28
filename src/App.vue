@@ -14,11 +14,22 @@ const items = ref([
 ]);
 //items method
 const saveItem = () =>{
-  items.value.push({id: items.value.length +1, label: newItem.value});
+  items.value.push({
+    id: items.value.length +1,
+     label: newItem.value,
+     highPriority: newItemHighPriority.value});
   //clean the input
-  newItem.value='';
-}
-
+  newItem.value="";
+  newItemHighPriority.value = false;
+};
+const doEdit = (edit) => {
+  editing.value = edit;
+  // Limpiando la entrada de texto
+  // en caso de que se oculte o muestre
+  // el formulario
+  newItem.value = "";
+  newItemHighPriority.value = false;
+};
 const newItem =ref('');
 const newItemHighPriority = ref(false);
 //visualizacion de formulario
@@ -31,6 +42,10 @@ const link = () => {
     return 'https://google.com';
   }
   return `https://${newItem.value}`;
+};
+// Alternando estado de compra del item
+const togglePurchased = (item) => {
+  item.purchased = !item.purchased;
 };
 
 /*Helados
@@ -53,11 +68,11 @@ const newItemPriority= ref('low');
     {{ header }}
     </h1> 
     <!--Boton para cancelar el formulario-->
-    <button v-if="editing" class="btn " v-on:click="activateEdition(false)">
+    <button v-if="editing" @click="doEdit(false)" class="btn " v-on:click="activateEdition(false)">
       Cancelar
     </button>
     <!--Boton para agregar el formulario-->
-    <button v-else class="btn btn-primary" v-on:click="activateEdition(true)">
+    <button v-else @click="doEdit(true)" class="btn btn-primary" v-on:click="activateEdition(true)">
       Agregar articulo
     </button>
   </div>
@@ -149,6 +164,7 @@ v-on:submit.prevent = "saveItem">
   </form>
 <!--ul>li*3 es el lenguaje emet a usar-->
 <!--lista para objetos-->
+<!--
 <ul>
         <li 
         v-for="{id,label,purchased, priority} 
@@ -161,21 +177,17 @@ v-on:submit.prevent = "saveItem">
 
         <p v-if="items.length===0">🥀NO HAY ELEMENTOS EN LA LISTA🥀</p>
 </ul>
-<!--lista para arreglos-->
+-->
 <ul>
-  <!--<li v-for="({id,label}, i) in items" :key="id"> {{ i+1 }} {{i%2==0?'🦖':'🛒'}} {{label}} </li>-->
-        <li 
-        v-for="{id,label,purchased, priority} 
-        in items" 
-        :key="id"
-         
-      :class="[purchased ? 'strikeout' : '', priority ? 'priority' : '']">
-    {{ priority ? '❤️‍🔥' : '⭐' }} 
-        {{label}} 
-      </li>
-
-        <p v-if="items.length===0">🥀NO HAY ELEMENTOS EN LA LISTA🥀</p>
-</ul>
+    <li v-for="({ id, label, purchased, priority }, index) in items" 
+     @click="togglePurchased(items[index])"
+      :class="{strikeout: purchased, priority: priority}"
+      v-bind:key="id">
+      🦖 {{ label }}
+    </li>
+  </ul>
+  
+  <p v-if="items.length === 0">🥀 No hay elementos en la lista</p>
 </template>
 
 <style scoped>
