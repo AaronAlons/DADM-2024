@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 //models
 const header = ref('App lista de compras');
 //items
@@ -47,13 +47,6 @@ const link = () => {
 const togglePurchased = (item) => {
   item.purchased = !item.purchased;
 };
-// Creando una propiedad computada
-const characterCount = computed(()=>{
-  // Toda propiedad computada debe regresar un valor
-  return newItem.value.length;
-});
-// Creando propiedad computada que invierte items de la lista
-const reversedItems = computed(() => [...items.value].reverse());
 
 /*Helados
 const iceCreamFlavors = ref([]);*/
@@ -170,10 +163,7 @@ v-on:submit.prevent = "saveItem">
       GUARDAR PRODUCTO
     </button>
   </form>
-  <!-- Contador -->
-<p class="counter">
-  {{ characterCount }} / 200
-</p>
+  
 <!--ul>li*3 es el lenguaje emet a usar-->
 <!--lista para objetos-->
 <!--
@@ -192,7 +182,7 @@ v-on:submit.prevent = "saveItem">
 -->
 <ul>
     <li v-for="({ id, label, purchased, priority }, index) in items" 
-     @click="togglePurchased(reversedItems[index])"
+     @click="togglePurchased(items[index])"
       :class="{strikeout: purchased, priority: priority}"
       v-bind:key="id">
       🦖 {{ label }}
