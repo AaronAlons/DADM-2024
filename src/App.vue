@@ -1,27 +1,8 @@
 <script setup>
 import { ref, computed } from 'vue';
-//models
-const header = ref('App lista de compras');
-//items
-//item model
-const items = ref([
-    {id:'1', label:'10 bolillos',purchased:true,priority:true},
-    {id:'2',label:'1 lata de frijoles',purchased:false, priority:true},
-    {id:'3',label:'1 chela',purchased:false, priority:true},
-    {id:'4',label:'1 nutella',purchased:false, priority:true},
-    {id:'5',label:'1 lata de atun', purchased:false,  priority:true},
-    {id:'6',label:'1 pc gamer', purchased:false,  priority:true}
-]);
-//items method
-const saveItem = () =>{
-  items.value.push({
-    id: items.value.length +1,
-     label: newItem.value,
-     highPriority: newItemHighPriority.value});
-  //clean the input
-  newItem.value="";
-  newItemHighPriority.value = false;
-};
+// Modo edición
+const editing = ref(false);
+// Funcion que alterna el valor de la variable editing
 const doEdit = (edit) => {
   editing.value = edit;
   // Limpiando la entrada de texto
@@ -30,181 +11,79 @@ const doEdit = (edit) => {
   newItem.value = "";
   newItemHighPriority.value = false;
 };
-const newItem =ref('');
+
+const header = ref('App Lista de compras');
+const items = ref([
+  { id: 1, label: 'Cafe', purchased: true, highPriority: true },
+  { id: 2, label: 'Un pan de muerto', purchased: false, highPriority: true },
+  { id: 3, label: '3 seviches', purchased: true, highPriority: false },
+  { id: 4,label:'10 bolillos',purchased:true,priority:true},
+  { id: 5 ,label:'1 lata de frijoles',purchased:false, priority:true},
+  { id: 6,label:'1 chela',purchased:false, priority:true},
+  { id: 7,label:'1 nutella',purchased:false, priority:true},
+  { id: 8,label:'1 lata de atun', purchased:false,  priority:true},
+  { id: 9,label:'1 pc gamer', purchased:false,  priority:true}
+]);
+const newItem = ref('');
 const newItemHighPriority = ref(false);
-//visualizacion de formulario
-const editing = ref(true);
-const activateEdition =(activate) =>{
-  editing.value=activate;
-}
-const link = () => {
-  if (newItem.value.length === 0) {
-    return 'https://google.com';
-  }
-  return `https://${newItem.value}`;
+// Metodo para agregar nuevos elementos a la lista
+const saveItem = () => {
+  items.value.push({
+    id: items.value.length + 1,
+    label: newItem.value,
+    highPriority: newItemHighPriority.value
+  });
+  // Reiniciendo la entrada de texto
+  newItem.value = "";
+  newItemHighPriority.value = false;
 };
 // Alternando estado de compra del item
 const togglePurchased = (item) => {
   item.purchased = !item.purchased;
 };
-// Creando una propiedad computada
-const characterCount = computed(()=>{
-  // Toda propiedad computada debe regresar un valor
+
+// Propiedad computada
+const characterCount = computed(() => {
   return newItem.value.length;
 });
 // Creando propiedad computada que invierte items de la lista
 const reversedItems = computed(() => [...items.value].reverse());
-
-/*Helados
-const iceCreamFlavors = ref([]);*/
-/*Enlazado con checkboxes
-const newItemHighPriority = ref(false);*/
-/*radio buttons
-const newItemPriority= ref('low');
-*/
 </script>
 
 <template>
   <div class="header">
-    <h1>
-    <!--agregamos un icono al codigo a un costado del header-->
-    <i 
-    class="material-icons shopping-cart-icon">
-    local_mall
-  </i>
-    {{ header }}
-    </h1> 
-    <!--Boton para cancelar el formulario-->
-    <button v-if="editing" @click="doEdit(false)" class="btn " v-on:click="activateEdition(false)">
-      Cancelar
-    </button>
-    <!--Boton para agregar el formulario-->
-    <button v-else @click="doEdit(true)" class="btn btn-primary" v-on:click="activateEdition(true)">
-      Agregar articulo
-    </button>
+    <h1> <i class="material-icons shopping-cart-icon">local_mall</i> {{ header }}</h1>
+    <button v-if="editing" @click="doEdit(false)" class="btn">Cancelar</button>
+    <button v-else @click="doEdit(true)" class="btn btn-primary">Agregar Articulo</button>
   </div>
-  <!--agregar el link-->
-  <!--<a v-bind:href="'https://' + newItem" target="_blank">{{newItem==""?"🦖 Link":newItem}}</a>-->
-  <!--<a v-bind:href="newItem === '' ? 'https://www.google.com' : 'http://' + newItem" target="_blank">
-    {{ newItem === '' ? '🦖 link' : newItem }}
-  </a>-->
-  <a :href=link()>{{ newItem === '' ? '🦖 LINK' : newItem }}</a>
-  <div>
-    <!--<input v-model="newItem"
-    type="text" 
-    placeholder="Agregar articulo">
-    -->
-    <!--Radio Buttons
-    <label>
-        <input type="radio" value="low" v-model="newItemPriority">
-        Bajo
-    </label>
-    <label>
-        <input type="radio" value="high" v-model="newItemPriority">
-        Alto
-    </label>
-    {{ newItemPriority =='low'?'🦖':'❤️‍🔥'}}
-    -->
-    <!--Enlazado con checkboxes
-    Radio Buttons 
-    <label><input type="checkbox" v-model="newItemHighPriority">Alta Prioridad</label> <br>
-    {{ newItemHighPriority }}-->
-    <!-- Helados
-    <label>
-        <input type="checkbox" v-model="iceCreamFlavors" value="vanilla">
-        Vanilla
-      </label>
-      <label>
-        <input type="checkbox" v-model="iceCreamFlavors" value="chocolate">
-        Chocolate
-      </label>
-      <label>
-        <input type="checkbox" v-model="iceCreamFlavors" value="strawnerry">
-        Strawberry
-      </label>
-      {{iceCreamFlavors}}
-    -->
-    <!--agregar sin guardar
-    <input 
-          type="text" 
-          placeholder="Add Item" 
-          v-on:keyup.enter="items.push({id: items.length + 1, label: newItem})" 
-          v-model.trim="newItem">
-     Caja de seleccion de prioridad 
-    <label>
-        <input type="checkbox" v-model="newItemHighPriority">
-        High Priority
-      </label>
-       Boton 
-    <button 
-      class="btn btn-primary" 
-      v-on:click="items.push({id: items.length + 1, label: newItem})">
-      Salvar Articulo
-    </button>
-    -->
-  </div>
-
-<!-- Agrupando en un div las entradas -->
- <!--<form calss="add-item form" v-on:submit.prevent="items.push({ id: items.length + 1, label: newItem })" class="add-item fomr">-->
-  
-<form 
-class="add-item form" 
-v-if="editing"
-v-on:submit.prevent = "saveItem">
-  
-    <!-- entrada de texto -->
-    <input
-      v-model.trim="newItem"
-      type="text"
-      placeholder="Add Item"
-    />
-    <!-- Caja de seleccion de prioridad -->
-    <label>
-      <input type="checkbox" v-model="newItemHighPriority" />
-      ALTA PRIORIDAD
-    </label>
+  <!-- Agrupando Entradas de usuario -->
+  <form class="add-item form" v-if="editing" v-on:submit.prevent="saveItem">
+    <!-- Entrada de texto -->
+    <input type="text" placeholder="Add Item" v-model.trim="newItem">
+    <!-- Radio Buttons -->
+    <label><input type="checkbox" v-model="newItemHighPriority">Alta Prioridad</label>
     <!-- Boton -->
-    <button :disabled="newItem.length === 0"
-      class="btn btn-primary"
-    >
-      GUARDAR PRODUCTO
+    <button :disabled="newItem.length === 0" class="btn btn-primary">
+      Guardar compra
     </button>
-  </form>
   <!-- Contador -->
-<p class="counter">
-  {{ characterCount }} / 200
-</p>
-<!--ul>li*3 es el lenguaje emet a usar-->
-<!--lista para objetos-->
-<!--
-<ul>
-        <li 
-        v-for="{id,label,purchased, priority} 
-        in items" 
-        :key="id"
-         class="amazing"
-      :class="{strikeout: purchased, priority:priority}">
-    {{ priority ? '❤️‍🔥' : '⭐' }} 
-        {{label}} </li>
-
-        <p v-if="items.length===0">🥀NO HAY ELEMENTOS EN LA LISTA🥀</p>
-</ul>
--->
-<ul>
-    <li v-for="({ id, label, purchased, priority }, index) in items" 
-     @click="togglePurchased(reversedItems[index])"
-      :class="{strikeout: purchased, priority: priority}"
-      v-bind:key="id">
+  <p class="counter">
+    {{characterCount}} / 200
+  </p>
+  </form>
+  <!-- Lista -->
+  <ul>
+    <li v-for="({ id, label, purchased, highPriority }, index) in reversedItems"
+      :class="{ strikeout: purchased, priority: highPriority }" @click="togglePurchased(reversedItems[index])" v-bind:key="id">
       🦖 {{ label }}
     </li>
   </ul>
-  
   <p v-if="items.length === 0">🥀 No hay elementos en la lista</p>
 </template>
 
 <style scoped>
-.shopping-cart-icon{
-    font-size: 2rem;
+.shopping-cart-icon {
+  font-size: 2rem;
+  /* Adjust the font-size value as per your desired size */
 }
-
 </style>
