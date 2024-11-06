@@ -1,7 +1,7 @@
 <script setup>
 import {ref} from 'vue';
 import planItem from './components/plan-item.vue';
-const plans = ref(['El soltero', 'El curioso','El adicto'])
+const plans = ref(['El soltero', 'El curioso','El adicto']);
 </script>
 
 <template>
