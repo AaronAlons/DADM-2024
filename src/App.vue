@@ -17,7 +17,9 @@ import PlanPicker from './components/PlanPicker.vue';
     <h2 class="subtitle">
       Viajamos por el mundo para encontrar el mejor café de origen único para ti
     </h2>
+   
     <PlanPicker />
+  
   </div>
 </template>
 
