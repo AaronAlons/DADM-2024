@@ -1,52 +1,37 @@
-<script setup>
-//import ref fuction 
-import {ref} from 'vue';
-//usando un macro para definir las propiedades
-//defineProps(['name','planIcon']);
-/*defineProps({
-  name: {
-    type: String,
-    require:true
-    },
-    planIcon: String,
-    price:{
-      type: Number,
-      default: 200
-      }
-      });*/
-const props = defineProps({
-  name: {
-    type: String,
-    require:true
- }
-});
-//define event
- const emit = defineEmits(['select']);
-
-
-//VARIABLE QUE PERMITE RECORDAR SI EL Plan HA SIDO SELECCIONADO
- const selected = ref(false);
- 
- //FUNCION QUE PERMITE CAMBIAR EL ESTADO DE LA VARIABLE SELECTED
- const selectPlan = () => {
-  selected.value =true;
-  //wmitir el elvenoto de que el evento ha sido seleccionado 
- };
- emit('select', props.name);
-
-</script>
-
 <template>
-    <div @click="selectPlan" class="plan">
+  <div  @click="selectPlan" class="plan">
     <div class="description">
-      <!--vamos a habilitar las propiedades -->
-      <span class="title">
-        {{ name }} {{ selected ? '🦖' : '' }}
-      </span>
+      <span class="title"> {{ name }} {{ selected ? '😁' : '' }}</span>
     </div>
   </div>
-
 </template>
+
+<script setup>
+// import ref function
+import { ref } from 'vue';
+// Usando un macro para
+// definir las props
+//defineProps(['name','planIcon']);
+const props = defineProps({
+  name: {
+    tyoe: String,
+    required: true
+  }
+});
+// Definiendo un evento
+const emit = defineEmits (['select']);
+// Variable que permite
+// recordar si el plan ha sifo seleccionado
+const  selected = ref (false);
+// Función que permite cambiar el estado de la variable 
+// selected 
+const selectPlan = () => {
+  selected.value = !selected.value;
+  // Emitir evento de que el 
+  //plan ha sido seleccionado
+  emit('select', props.name);
+}
+</script>
 
 <style scoped>
 
