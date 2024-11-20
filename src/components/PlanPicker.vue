@@ -25,7 +25,6 @@ const selectPlan = (name) => {
       @select="selectPlan" 
     />
   </div>
-  <p>Plan seleccionado: {{ selectedPlan }}</p> <!-- Mostrar el plan seleccionado -->
 </template>
 
 <style scoped>

@@ -1,5 +1,7 @@
 <template>
-  <div @click="selectPlan" class="plan">
+  <div @click="selectPlan" 
+  class="plan"
+  :class="{selected:isSelected}">
     <div class="description">
       <!-- Mostrar el título y el emoji si el plan está seleccionado -->
       <span class="title"> {{ name }} {{ isSelected ? '🦖' : '' }}</span>
