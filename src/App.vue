@@ -1,5 +1,7 @@
 <script setup>
 import PlanPicker from './components/PlanPicker.vue';
+import {ref} from 'vue';
+const showPlans = ref(false);
 
 </script>
 
@@ -17,8 +19,12 @@ import PlanPicker from './components/PlanPicker.vue';
     <h2 class="subtitle">
       Viajamos por el mundo para encontrar el mejor café de origen único para ti
     </h2>
+    <!--Emmet label>input:checkbox-->
+    <label><input type="checkbox" v-model="showPlans">
+    mostrar selectos de planes
+    </label>
    
-    <PlanPicker />
+    <PlanPicker v-if="showPlans" />
   
   </div>
 </template>
