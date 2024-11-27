@@ -13,8 +13,12 @@ const selectPlan = (name) => {
   // almacenar el plan seleccionado
   selectedPlan.value = name;
 };
-//intentar obtener la referencia del plans
 
+// referencia al elemento del componente que contiene los planes
+const plansWrapper = ref(null);
+
+
+//intentar obtener la referencia del plans
 console.log('Termina de ejecutar el script setup🦖');
 
 // Se ejecuta cuando el componente está montado
@@ -22,13 +26,13 @@ console.log('Termina de ejecutar el script setup🦖');
 onMounted(() => {
   // intentar obtener la referencia del plans
   console.log('El componente planpicker está montado');
-  console.log(document.querySelector('.plans'));
+  console.log(plansWrapper.value);
 
 });
 </script>
 
 <template>
-  <div class="plans">
+  <div ref='plansWrapper' class="plans">
     <PlanPickerItem
       v-for="plan in plans" 
       :key="plan" 
