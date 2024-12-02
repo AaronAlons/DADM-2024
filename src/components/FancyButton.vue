@@ -1,9 +1,15 @@
 <template>
-    <button> 
-      <slot></slot> 
+    <button
+    @mouseenter="hover=true"
+    @mouseleave="hover=false"> 
+    <slot name="icon" :hover="hover">🙊</slot>  
+    <slot>submit</slot> 
     </button>
+    {{ hover }}
   </template>
   <script setup>
+  import {ref} from 'vue';
+  const hover = ref(false);
   </script>
   
   <style scoped>

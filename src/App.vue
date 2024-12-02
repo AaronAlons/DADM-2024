@@ -5,7 +5,10 @@ import fancyButton from './components/FancyButton.vue';
 <template>
   <div class="content">
     <fancy-button>
-      <strong>E</strong>nviar
+      <template #icon="{hover}">
+        {{ hover ? "🦖" : "👌" }}
+      </template>
+        Hazme click
       </fancy-button>
   </div>
 </template>
